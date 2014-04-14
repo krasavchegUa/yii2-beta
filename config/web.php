@@ -8,6 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
+    'language' => 'ru',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -23,6 +24,14 @@ $config = [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => true,
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '' => 'site/index',
+                '<action:(login|logout|about|contact)>' => 'site/<action>'
+            ]
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -33,6 +42,11 @@ $config = [
             ],
         ],
         'db' => $db,
+    ],
+    'modules' => [
+        'backend' => [
+            'class' => 'app\modules\backend\Module',
+        ],
     ],
     'params' => $params,
 ];

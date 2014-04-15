@@ -1,12 +1,14 @@
 {
-    "name": "extrabrand/yii2-beta-0.0.2",
-    "description": "Second package",
+    "name": "extrabrand/yii2-beta-0.0.1",
+    "description": "Just work! Please",
+    "license": "BSD3",
     "authors": [
         {
             "name": "krasavchegUa",
             "email": "krasavcheg.ua@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
 
     }

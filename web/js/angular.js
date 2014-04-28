@@ -5262,8 +5262,8 @@ function $TemplateCacheProvider() {
  *
  * You can specify `templateUrl` as a string representing the URL or as a function which takes two
  * arguments `tElement` and `tAttrs` (described in the `compile` function api below) and returns
- * a string value representing the url.  In either case, the template URL is passed through {@link
- * api/ng.$sce#getTrustedResourceUrl $sce.getTrustedResourceUrl}.
+ * a string value representing the url.  In either case, the template URL is passed through
+ * {@link api/ng.$sce#getTrustedResourceUrl $sce.getTrustedResourceUrl}.
  *
  *
  * #### `replace`
@@ -5294,8 +5294,8 @@ function $TemplateCacheProvider() {
  *
  * The compile function deals with transforming the template DOM. Since most directives do not do
  * template transformation, it is not used often. Examples that require compile functions are
- * directives that transform template DOM, such as {@link
- * api/ng.directive:ngRepeat ngRepeat}, or load the contents
+ * directives that transform template DOM, such as
+ * {@link api/ng.directive:ngRepeat ngRepeat}, or load the contents
  * asynchronously, such as {@link ngRoute.directive:ngView ngView}. The
  * compile function takes the following arguments.
  *
@@ -12908,9 +12908,10 @@ function adjustMatchers(matchers) {
  * can override it completely to change the behavior of `$sce`, the common case would
  * involve configuring the {@link ng.$sceDelegateProvider $sceDelegateProvider} instead by setting
  * your own whitelists and blacklists for trusting URLs used for loading AngularJS resources such as
- * templates.  Refer {@link ng.$sceDelegateProvider#resourceUrlWhitelist
- * $sceDelegateProvider.resourceUrlWhitelist} and {@link
- * ng.$sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
+ * templates.  Refer {@link ng.$sceDelegateProvider#resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist}
+ * and
+ * {@link ng.$sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
+ *
  */
 
 /**
@@ -12920,8 +12921,8 @@ function adjustMatchers(matchers) {
  *
  * The `$sceDelegateProvider` provider allows developers to configure the {@link ng.$sceDelegate
  * $sceDelegate} service.  This allows one to get/set the whitelists and blacklists used to ensure
- * that the URLs used for sourcing Angular templates are safe.  Refer {@link
- * ng.$sceDelegateProvider#resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist} and
+ * that the URLs used for sourcing Angular templates are safe.  Refer
+ * {@link ng.$sceDelegateProvider#resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist} and
  * {@link ng.$sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
  *
  * For the general details about this service in Angular, read the main page for {@link ng.$sce
@@ -13133,11 +13134,11 @@ function $SceDelegateProvider() {
      *
      * @description
      * If the passed parameter had been returned by a prior call to {@link ng.$sceDelegate#trustAs
-     * `$sceDelegate.trustAs`}, returns the value that had been passed to {@link
-     * ng.$sceDelegate#trustAs `$sceDelegate.trustAs`}.
+     * `$sceDelegate.trustAs`}, returns the value that had been passed to
+     * {@link ng.$sceDelegate#trustAs `$sceDelegate.trustAs`}.
      *
-     * If the passed parameter is not a value that had been returned by {@link
-     * ng.$sceDelegate#trustAs `$sceDelegate.trustAs`}, returns it as-is.
+     * If the passed parameter is not a value that had been returned by
+     * {@link ng.$sceDelegate#trustAs `$sceDelegate.trustAs`}, returns it as-is.
      *
      * @param {*} value The result of a prior {@link ng.$sceDelegate#trustAs `$sceDelegate.trustAs`}
      *      call or anything else.
@@ -13278,12 +13279,12 @@ function $SceDelegateProvider() {
  * ## How does it work?
  *
  * In privileged contexts, directives and code will bind to the result of {@link ng.$sce#getTrusted
- * $sce.getTrusted(context, value)} rather than to the value directly.  Directives use {@link
- * ng.$sce#parse $sce.parseAs} rather than `$parse` to watch attribute bindings, which performs the
+ * $sce.getTrusted(context, value)} rather than to the value directly.  Directives use
+ * {@link ng.$sce#parse $sce.parseAs} rather than `$parse` to watch attribute bindings, which performs the
  * {@link ng.$sce#getTrusted $sce.getTrusted} behind the scenes on non-constant literals.
  *
- * As an example, {@link ng.directive:ngBindHtml ngBindHtml} uses {@link
- * ng.$sce#parseAsHtml $sce.parseAsHtml(binding expression)}.  Here's the actual code (slightly
+ * As an example, {@link ng.directive:ngBindHtml ngBindHtml} uses
+ * {@link ng.$sce#parseAsHtml $sce.parseAsHtml(binding expression)}.  Here's the actual code (slightly
  * simplified):
  *
  * <pre class="prettyprint">
@@ -13330,9 +13331,9 @@ function $SceDelegateProvider() {
  * The included {@link ng.$sceDelegate $sceDelegate} comes with sane defaults to allow you to load
  * templates in `ng-include` from your application's domain without having to even know about SCE.
  * It blocks loading templates from other domains or loading templates over http from an https
- * served document.  You can change these by setting your own custom {@link
- * ng.$sceDelegateProvider#resourceUrlWhitelist whitelists} and {@link
- * ng.$sceDelegateProvider#resourceUrlBlacklist blacklists} for matching such URLs.
+ * served document.  You can change these by setting your own custom
+ * {@link ng.$sceDelegateProvider#resourceUrlWhitelist whitelists} and
+ * {@link ng.$sceDelegateProvider#resourceUrlBlacklist blacklists} for matching such URLs.
  *
  * This significantly reduces the overhead.  It is far easier to pay the small overhead and have an
  * application that's secure and can be audited to verify that with much more ease than bolting
@@ -13591,8 +13592,8 @@ function $SceProvider() {
      * @name $sce#parse
      *
      * @description
-     * Converts Angular {@link guide/expression expression} into a function.  This is like {@link
-     * ng.$parse $parse} and is identical when the expression is a literal constant.  Otherwise, it
+     * Converts Angular {@link guide/expression expression} into a function.  This is like
+     * {@link ng.$parse $parse} and is identical when the expression is a literal constant.  Otherwise, it
      * wraps the expression in a call to {@link ng.$sce#getTrusted $sce.getTrusted(*type*,
      * *result*)}
      *
@@ -17860,8 +17861,8 @@ var ngBindTemplateDirective = ['$interpolate', function($interpolate) {
  *
  * @description
  * Creates a binding that will innerHTML the result of evaluating the `expression` into the current
- * element in a secure way.  By default, the innerHTML-ed content will be sanitized using the {@link
- * ngSanitize.$sanitize $sanitize} service.  To utilize this functionality, ensure that `$sanitize`
+ * element in a secure way.  By default, the innerHTML-ed content will be sanitized using the
+ * {@link ngSanitize.$sanitize $sanitize} service.  To utilize this functionality, ensure that `$sanitize`
  * is available, for example, by including {@link ngSanitize} in your module's dependencies (not in
  * core Angular.)  You may also bypass sanitization for values you know are safe. To do so, bind to
  * an explicitly trusted value via {@link ng.$sce#trustAsHtml $sce.trustAsHtml}.  See the example
@@ -19152,8 +19153,8 @@ var ngIfDirective = ['$animate', function($animate) {
  * application document. This is done by calling {@link ng.$sce#getTrustedResourceUrl
  * $sce.getTrustedResourceUrl} on it. To load templates from other domains or protocols
  * you may either {@link ng.$sceDelegateProvider#resourceUrlWhitelist whitelist them} or
- * [wrap them](ng.$sce#trustAsResourceUrl) as trusted values. Refer to Angular's {@link
- * ng.$sce Strict Contextual Escaping}.
+ * [wrap them](ng.$sce#trustAsResourceUrl) as trusted values. Refer to Angular's
+ * {@link ng.$sce Strict Contextual Escaping}.
  *
  * In addition, the browser's
  * [Same Origin Policy](https://code.google.com/p/browsersec/wiki/Part2#Same-origin_policy_for_XMLHttpRequest)

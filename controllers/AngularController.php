@@ -42,4 +42,34 @@ class AngularController extends Controller
     {
         return $this->render('index');
     }
+
+    public function actionProducts()
+    {
+        $array = array(
+            array(
+                'id' => 1,
+                'sender' => 'jean@somecompany.com',
+                'subject' => 'Hi there, old friend',
+                'date' => 'Dec 7, 2013 12:32:00',
+                'recipients' => array(
+                    'greg@somecompany.com'
+                ),
+                'message' => 'Hey, we should get together for lunch sometime and catch up.' .
+                    'There are many things we should collaborate on this year.'
+            ),
+            array(
+                'id' => 2,
+                'sender' => 'web@somecompany.com',
+                'subject' => 'Hi1 there, old friend',
+                'date' => 'Dec 3, 2013 12:32:00',
+                'recipients' => array(
+                    'web@somecompany.com'
+                ),
+                'message' => 'Hey, we should get together for lunch sometime and catch up.' .
+                    'There are many things we should collaborate on this year.'
+            ),
+        );
+
+        return json_encode($array);
+    }
 } 

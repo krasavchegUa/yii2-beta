@@ -1,78 +1,122 @@
-var app = angular.module('exterzoApp', []);
+/*var app = angular.module('exterzoApp', []);
 
-app.controller('MyController', function($scope) {
-    $scope.person = { name: "Rudak Volodymyr" };
-    var updateClock = function() {
-        $scope.clock = new Date();
-    };
-    var timer = setInterval(function() {
-        $scope.$apply(updateClock);
-    }, 1000);
-    updateClock();
+app.controller('AlbumController', function($scope, $location){
+    $scope.album = [{name:'Southwest Serenade', duration: '2:34'},
+        {name:'Northern Light Waltz', duration: '3:21'},
+        {name:'Eastern Tango', duration: '17:45'}];
 });
 
-app.controller('DemoController', function($scope){
-    $scope.counter = 0;
-    $scope.add = function(amount) {
-        $scope.counter += amount;
+app.controller('DeathrayMenuController', function($scope){
+    $scope.menuState = {};
+    $scope.menuState.show = false;
+    $scope.toggleMenu = function() {
+        $scope.menuState.show = !$scope.menuState.show;
     };
-    $scope.subtract = function(amount){
-        $scope.counter -= amount;
-        if($scope.counter < 0 ){
-            $scope.counter = 0;
+    $scope.isDisabled = false;
+    $scope.stun = function() {
+        $scope.isDisabled = true;
+    };
+});
+
+app.controller('HeaderController', function($scope){
+    $scope.isError = false;
+    $scope.isWarning = false;
+    $scope.showError = function() {
+        $scope.messageText = 'This is an error!';
+        $scope.isError = true;
+        $scope.isWarning = false;
+    };
+    $scope.showWarning = function() {
+        $scope.messageText = 'Just a warning. Please carry on.';
+        $scope.isWarning = true;
+        $scope.isError = false;
+    };
+});
+
+app.controller('RestaurantTableController', function($scope){
+    $scope.directory = [{name:'The Handsome Heifer', cuisine:'BBQ'},
+        {name:"Green's Green Greens", cuisine:'Salads'},
+        {name:'House of Fine Fish', cuisine:'Seafood'}];
+    $scope.selectRestaurant = function(row) {
+        $scope.selectedRow = row;
+    };
+});
+
+app.controller('CartController', function($scope){
+    $scope.bill = {};
+    $scope.items = [
+        {title: 'Paint pots', quantity: 8, price: 3.95},
+        {title: 'Polka dots', quantity: 17, price: 12.95},
+        {title: 'Pebbles', quantity: 5, price: 6.95}
+    ];
+    var calculateTotals = function() {
+        var total = 0;
+        for (var i = 0, len = $scope.items.length; i < len; i++) {
+            total = total + $scope.items[i].price * $scope.items[i].quantity;
         }
+        $scope.bill.totalCart = total;
+        $scope.bill.discount = total > 100 ? 10 : 0;
+        $scope.bill.subtotal = total - $scope.bill.discount;
+    };
+    $scope.$watch('items', calculateTotals, true);
+}); */
+
+
+var amailServices = angular.module('AMail',['ngRoute']);
+
+// Publish our messages for the list template
+amailServices.controller('ListController', function($scope, $http) {
+    $http.get('/angular/products').success(function(data, status, headers, config) {
+        $scope.messages = data;
+    });
+    //$scope.messages = messages;
+});
+// Get the message id from the route (parsed from the URL) and use it to
+// find the right message object.
+amailServices.controller('DetailController', function($scope, $routeParams, $http) {
+    $http.get('/angular/products').success(function(data, status, headers, config) {
+        $scope.message = data[$routeParams.id];
+    });
+
+});
+
+amailServices.config(function($routeProvider) {
+    $routeProvider.
+        when('/', {
+            controller: 'ListController',
+            templateUrl : '/js/views/list.html'}).
+
+        when('/view/:id',{
+            controller : 'DetailController',
+            templateUrl:'/js/views/detail.html'}).
+
+        otherwise({
+            redirectTo:'/'
+        });
+});
+
+angular.bootstrap(document.getElementById("amail"),['AMail']);
+
+var appModule = angular.module('app', []);
+
+appModule.controller('SomeController', function($scope) {
+    $scope.message = { text: 'nothing clicked yet' };
+    $scope.clickUnfocused = function() {
+        $scope.message.text = 'unfocused button clicked';
+    };
+    $scope.clickFocused = function() {
+        $scope.message.text = 'focus button clicked';
     }
 });
 
-app.controller('ListController', function($scope, $http) {
-    var apiKey = 'MDEzNjU2OTcxMDEzOTg3MDgzNDQzYjIwZA001',
-        nprUrl = 'http://api.npr.org/query?id=61&fields=relatedLink,title,byline,text,audio,image,pullQuote,all&output=JSON';
-    // Hidden our previous section's content
-    // construct our http request
-    $http({
-        method: 'JSONP',
-        url: nprUrl + '&apiKey=' + apiKey + '&callback=JSON_CALLBACK'
-    }).success(function(data, status) {
-            $scope.programs = data.list.story;
-            console.log(data);
-            // Now we have a list of the stories (data.list.story)
-            // in the data object that the NPR API
-            // returns in JSON that looks like:
-            // data: { "list": {
-            //   "title": ...
-            //   "story": [
-            //     { "id": ...
-            //       "title": ...
-        }).error(function(data, status) {
-            // Some error occurred
-        });
+appModule.controller('AddUserController', function($scope) {
+    $scope.message = '';
+    $scope.addUser = function () {
+// TODO for the reader: actually save user to database...
+        $scope.message = 'Thanks, ' + $scope.user.first + ', we added you!';
+    };
 });
 
-app.controller('PlayerController', ['$scope', function($scope) {
-    $scope.playing = false;
-    $scope.audio = document.createElement('audio');
-    $scope.audio.src = '/media/npr.mp4';
+ngdc
 
-    $scope.play = function() {
-        $scope.audio.play();
-        $scope.playing = true;
-    };
-    $scope.pause = function() {
-        $scope.audio.pause();
-        $scope.playing = false;
-    };
-    $scope.stop = function() {
-        $scope.audio.pause();
-        $scope.audio.currentTime = 0;
-        $scope.playing = false;
-    };
 
-    $scope.audio.addEventListener('ended', function() {
-        $scope.$apply(function() {
-            $scope.stop()
-        });
-    });
-}]);
-
-app.controller('RelatedController', ['$scope', function($scope) {
-}]);

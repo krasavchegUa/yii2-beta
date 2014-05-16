@@ -5,9 +5,35 @@
 $this->title = 'Angular';
 $this->registerJsFile('/js/angular.min.js');
 $this->registerJsFile('/js/angular-route.min.js');
-$this->registerJsFile('/js/ng-script.js');
+$this->registerJsFile('/js/angular-resource.min.js');
+$this->registerJsFile('/js/controllers/controllers.js');
+$this->registerJsFile('/js/directives/directives.js');
+$this->registerJsFile('/js/services/services.js');
+//$this->registerJsFile('/js/ng-script.js');
 ?>
-<style type="text/css">
+
+<div data-ng-app="guthub">
+
+<header>
+    <h1>GutHub</h1>
+</header>
+<div  data-butterbar>Loading...</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+            <!--Sidebar-->
+            <div id="focus"><a href="/angular/index/#/new">New Recipe</a></div>
+            <div><a href="/angular/index/#/">Recipe List</a></div>
+        </div>
+        <div class="span10">
+            <div  data-ng-view></div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!--<style type="text/css">
     .selected {
         background-color: lightgreen;
     }
@@ -44,7 +70,7 @@ $this->registerJsFile('/js/ng-script.js');
     </form>
 </div>
 
-<!--<div data-ng-app="exterzoApp">
+<div data-ng-app="exterzoApp">
 
     <table  data-ng-controller='RestaurantTableController'>
         <tr  data-ng-repeat='restaurant in directory'  data-ng-click='selectRestaurant($index)'

@@ -110,13 +110,11 @@ appModule.controller('SomeController', function($scope) {
 });
 
 appModule.controller('AddUserController', function($scope) {
-    $scope.message = '';
+    $scope.message = '12';
     $scope.addUser = function () {
-// TODO for the reader: actually save user to database...
+    // TODO for the reader: actually save user to database...
         $scope.message = 'Thanks, ' + $scope.user.first + ', we added you!';
     };
 });
 
-ngdc
-
-
+//mem memeemm132213123123033
